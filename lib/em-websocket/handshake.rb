@@ -29,6 +29,9 @@ module EventMachine
         end
       rescue HTTP::Parser::Error => e
         fail(HandshakeError.new("Invalid HTTP header: #{e.message}"))
+      rescue StandardError => e
+        puts "EXCEPTION in receive_data: [ data = #{data} ]"
+        raise e
       end
 
       # Returns the WebSocket upgrade headers as a hash.
